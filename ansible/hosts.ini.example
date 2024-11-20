@@ -1,9 +1,9 @@
 [control_plane]
-control ansible_host=x.x.x.x ansible_user=ucloud
+control ansible_host=$CONTROL_HOST_IP ansible_user=ucloud
 
 [workers]
-worker0 ansible_host=x.x.x.x ansible_user=ucloud
-worker1 ansible_host=x.x.x.x ansible_user=ucloud
+worker0 ansible_host=$WORKER_0_IP ansible_user=ucloud
+worker1 ansible_host=$WORKER_1_IP ansible_user=ucloud
 
 [k8s-cluster:children]
 control_plane
