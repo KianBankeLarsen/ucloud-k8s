@@ -17,6 +17,7 @@
 - name: Source nvm and check nodejs version
   shell: |
     source ~/.nvm/nvm.sh
+    nvm use 18
     node --version
   register: node_version
   args:
@@ -34,6 +35,7 @@
     - name: Source environment and deploy Pulumi stacks
       shell: |
         source ~/.nvm/nvm.sh
+        nvm use 18
         export PATH=$PATH:$HOME/.pulumi/bin
         pulumi login --local
         pulumi stack select ucloud --create
