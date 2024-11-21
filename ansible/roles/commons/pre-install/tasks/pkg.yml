@@ -14,13 +14,13 @@
 
 - name: install kubelet
   apt:
-    name: kubelet
+    name: kubelet=1.30.*
     state: present
     update_cache: true
 
 - name: install kubeadm
   apt:
-    name: kubeadm
+    name: kubeadm=1.30.*
     state: present
 
 - name: install yq
