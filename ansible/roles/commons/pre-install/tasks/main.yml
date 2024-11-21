@@ -1,13 +1,11 @@
 ---
-- name: Update and upgrade APT packages
-  tasks:
-    - name: Update the APT package index
-      apt:
-        update_cache: yes
-    
-    - name: Upgrade all APT packages
-      apt:
-        upgrade: dist
+- name: Update the APT package index
+  apt:
+    update_cache: yes
+
+- name: Upgrade all APT packages
+  apt:
+    upgrade: full
 
 - name: Install Kubernetes packages
   include_tasks: pkg.yml

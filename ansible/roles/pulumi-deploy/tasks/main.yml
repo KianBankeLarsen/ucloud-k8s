@@ -16,7 +16,7 @@
 - name: Fetch and print kubectl version
   tasks:
     - name: Fetch kubectl version
-      command: kubectl version --short
+      command: kubectl version
       register: kubectl_version_output
     
     - name: Print kubectl version
