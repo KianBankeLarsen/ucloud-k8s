@@ -2,15 +2,15 @@
   tasks:
     - name: Clone the GitHub repository
       git:
-        repo: 'https://github.com/KianBankeLarsen/CTF-Platform'
-        dest: '~/CTF-Platform'
+        repo: "https://github.com/KianBankeLarsen/CTF-Platform"
+        dest: "~/CTF-Platform"
         update: yes
 
 - name: Install Node modules
   tasks:
     - name: Install Node modules
       npm:
-        path: '~/CTF-Platform/src'
+        path: "~/CTF-Platform/src"
         state: present
 
 - name: Deploy stacks
@@ -24,8 +24,8 @@
       environment:
         PULUMI_CONFIG_PASSPHRASE: "{{ pulumi_passphrase }}"
       loop:
-        - '~/CTF-Platform/src/infrastructure'
-        - '~/CTF-Platform/src/certificates'
-        - '~/CTF-Platform/src/monitoring'
-        - '~/CTF-Platform/src/authentication'
-        - '~/CTF-Platform/src/application'
+        - "~/CTF-Platform/src/infrastructure"
+        - "~/CTF-Platform/src/certificates"
+        - "~/CTF-Platform/src/monitoring"
+        - "~/CTF-Platform/src/authentication"
+        - "~/CTF-Platform/src/application"
