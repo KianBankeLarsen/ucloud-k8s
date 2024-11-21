@@ -21,6 +21,7 @@
       shell: |
         source ~/.nvm/nvm.sh
         export PATH=$PATH:$HOME/.pulumi/bin
+        pulumi login --local
         pulumi stack select ucloud --create
         pulumi up -y
       args:
