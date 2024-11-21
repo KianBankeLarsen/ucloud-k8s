@@ -7,10 +7,19 @@
 
 - name: install npm packages
   shell: |
+    source ~/.nvm/nvm.sh
     npm install
   args:
     chdir: "~/CTF-Platform/src"
     executable: /bin/bash
+
+- name: Read .bashrc file
+  command: cat ~/.bashrc
+  register: bashrc_content
+
+- name: Display .bashrc file content
+  debug:
+    var: bashrc_content.stdout
 
 - name: Deploy stacks
   vars:
