@@ -5,10 +5,13 @@
     dest: "~/CTF-Platform"
     update: yes
 
-- name: Install Node modules
-  npm:
-    path: "~/CTF-Platform/src"
-    state: present
+- name: install node
+  shell: |
+    source ~/.nvm/nvm.sh
+    npm install
+  args:
+    chdir: "~/CTF-Platform/src"
+    executable: /bin/bash
 
 - name: Deploy stacks
   vars:

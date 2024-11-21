@@ -29,8 +29,6 @@
   shell: |
     source ~/.nvm/nvm.sh
     nvm install 22
-    node --version
-    npm --version
   args:
     executable: /bin/bash
 
