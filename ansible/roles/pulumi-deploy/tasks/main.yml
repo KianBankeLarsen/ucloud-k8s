@@ -17,10 +17,14 @@
   vars:
     pulumi_passphrase: "{{ lookup('file', '../pulumi_passphrase') }}"
   block:
-    - name: Select and deploy stacks
-      command: source ~/.bashrc && pulumi stack select ucloud --create && pulumi up --stack ucloud -y
+    - name: Source environment and deploy Pulumi stacks
+      shell: |
+        source ~/.bashrc
+        pulumi stack select ucloud --create
+        pulumi up -y
       args:
         chdir: "{{ item }}"
+        executable: /bin/bash
       environment:
         PULUMI_CONFIG_PASSPHRASE: "{{ pulumi_passphrase }}"
       loop:
