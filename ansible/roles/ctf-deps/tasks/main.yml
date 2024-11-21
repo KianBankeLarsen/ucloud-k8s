@@ -24,6 +24,7 @@
   shell: |
     source ~/.nvm/nvm.sh
     nvm install 18
+    nvm use 18
   args:
     executable: /bin/bash
 
