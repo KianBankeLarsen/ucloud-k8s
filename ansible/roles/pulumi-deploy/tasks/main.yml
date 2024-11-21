@@ -13,6 +13,21 @@
     chdir: "~/CTF-Platform/src"
     executable: /bin/bash
 
+- name: Check Node.js version with nvm
+  tasks:
+    - name: Source nvm and check Node.js version
+      shell: |
+        source ~/.nvm/nvm.sh
+        node --version
+      register: node_version
+      args:
+        executable: /bin/bash
+
+    - name: Log Node.js version to stdout
+      debug:
+        msg: "Node.js version is {{ node_version.stdout }}"
+
+
 - name: Deploy stacks
   vars:
     pulumi_passphrase: "{{ lookup('file', '../pulumi_passphrase') }}"
