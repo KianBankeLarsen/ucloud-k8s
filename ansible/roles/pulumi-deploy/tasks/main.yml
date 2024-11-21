@@ -13,6 +13,17 @@
     chdir: "~/CTF-Platform/src"
     executable: /bin/bash
 
+- name: Fetch and print kubectl version
+  tasks:
+    - name: Fetch kubectl version
+      command: kubectl version --short
+      register: kubectl_version_output
+    
+    - name: Print kubectl version
+      debug:
+        msg: "{{ kubectl_version_output.stdout }}"
+
+
 - name: Deploy stacks
   vars:
     pulumi_passphrase: "{{ lookup('file', '../pulumi_passphrase') }}"
