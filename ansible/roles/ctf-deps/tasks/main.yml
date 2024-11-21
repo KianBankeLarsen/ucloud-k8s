@@ -23,7 +23,7 @@
 - name: install node
   shell: |
     source ~/.nvm/nvm.sh
-    nvm install 22
+    nvm install 18
   args:
     executable: /bin/bash
 
