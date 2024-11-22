@@ -1,11 +1,13 @@
 ---
 - name: Clone GitHub repository
+  become_user: "{{ ansible_user }}"
   git:
     repo: "https://github.com/KianBankeLarsen/CTF-Platform"
     dest: "~/CTF-Platform"
     update: yes
 
 - name: install npm packages
+  become_user: "{{ ansible_user }}"
   shell: |
     source ~/.nvm/nvm.sh
     npm install
@@ -14,6 +16,7 @@
     executable: /bin/bash
 
 - name: Deploy stacks
+  become_user: "{{ ansible_user }}"
   vars:
     pulumi_passphrase: "{{ lookup('file', '../pulumi_passphrase') }}"
   block:
