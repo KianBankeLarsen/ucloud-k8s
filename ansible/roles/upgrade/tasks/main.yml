@@ -1,0 +1,21 @@
+---
+- name: Check if the server has been initialized
+  stat:
+    path: /var/run/server_initialized
+  register: server_initialized
+
+- name: Update the APT package index
+  apt:
+    update_cache: yes
+  when: server_initialized.stat.exists == False
+
+- name: Upgrade all APT packages
+  apt:
+    upgrade: full
+  when: server_initialized.stat.exists == False
+
+- name: Create marker file to indicate server initialization
+  file:
+    path: /var/run/server_initialized
+    state: touch
+  when: server_initialized.stat.exists == False
