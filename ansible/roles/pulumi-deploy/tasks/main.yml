@@ -18,6 +18,7 @@
 - name: Pulumi login local
   become_user: "{{ ansible_user }}"
   shell: |
+    export PATH=$PATH:$HOME/.pulumi/bin
     pulumi login --local
   args:
     chdir: "~/CTF-Platform/src"
