@@ -43,6 +43,7 @@ credentials.json
 terraform.tfvars
 ucloud_key*
 tailscale_key
+pulumi_passphrase
 
 # editor
 .vscode
