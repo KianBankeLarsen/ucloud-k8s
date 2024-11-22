@@ -6,9 +6,10 @@
     dest: "~/CTF-Platform"
     update: yes
 
-- name: Install npm packages
+- name: install npm packages
   become_user: "{{ ansible_user }}"
   shell: |
+    source ~/.nvm/nvm.sh
     npm install
   args:
     chdir: "~/CTF-Platform/src"
@@ -29,6 +30,7 @@
   block:
     - name: Source environment and deploy Pulumi stacks
       shell: |
+        source ~/.nvm/nvm.sh
         pulumi stack select ucloud --create
         pulumi up -y
       args:
