@@ -2,7 +2,7 @@
   gather_facts: true
   become: true
   roles:
-    - upgrade
+    - commons/upgrade
     - docker
     - cri-dockerd
 
