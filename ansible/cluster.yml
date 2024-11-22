@@ -11,7 +11,6 @@
   become: true
   roles:
     - kubernetes/control
-    - ctf-deps
     - pulumi-deploy
 
 - hosts: workers
