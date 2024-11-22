@@ -32,6 +32,7 @@
     - name: Source environment and deploy Pulumi stacks
       shell: |
         source ~/.nvm/nvm.sh
+        export PATH=$PATH:$HOME/.pulumi/bin
         pulumi stack select ucloud --create
         pulumi up -y
       args:
