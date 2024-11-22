@@ -1,5 +1,5 @@
+---
 # TODO: ensure idempotent
-
 - name: download pulumi install script
   get_url:
     url: https://get.pulumi.com

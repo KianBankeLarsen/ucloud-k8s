@@ -4,6 +4,7 @@
   roles:
     - docker
     - cri-dockerd
+    - upgrade
 
 - hosts: control_plane
   gather_facts: true
