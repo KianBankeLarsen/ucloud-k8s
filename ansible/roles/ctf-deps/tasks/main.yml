@@ -28,7 +28,7 @@
   become_user: "{{ ansible_user }}"
   shell: |
     source ~/.nvm/nvm.sh
-    nvm install 18
+    nvm install 22
   args:
     executable: /bin/bash
 
