@@ -1,4 +1,15 @@
 ---
+- name: Add localregistry to /etc/hosts
+  hosts: all
+  become: yes
+  tasks:
+    - name: Ensure localregistry points to 127.0.0.1
+      lineinfile:
+        path: /etc/hosts
+        state: present
+        regexp: '^127\.0\.0\.1\s+localregistry'
+        line: '127.0.0.1 localregistry'
+
 - name: Clone GitHub repository
   become_user: "{{ ansible_user }}"
   git:
