@@ -16,6 +16,13 @@
     state: present
     update_cache: true
 
+# Make docker available to ucloud user
+- name: Add user to docker group 
+  user: 
+    name: "{{ ansible_user }}" 
+    groups: docker 
+    append: yes
+
 - name: install APT Transport HTTPS
   apt:
     name: apt-transport-https

@@ -45,4 +45,4 @@
         - "~/CTF-Platform/src/certificates"
         - "~/CTF-Platform/src/monitoring"
         - "~/CTF-Platform/src/authentication"
-        #- "~/CTF-Platform/src/application"
+        - "~/CTF-Platform/src/application"
