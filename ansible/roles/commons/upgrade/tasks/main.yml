@@ -19,3 +19,10 @@
     path: /var/run/server_initialized
     state: touch
   when: server_initialized.stat.exists == False
+
+- name: Ensure localregistry points to 127.0.0.1
+  lineinfile:
+    path: /etc/hosts
+    state: present
+    regexp: '^127\.0\.0\.1\s+localregistry'
+    line: '127.0.0.1 localregistry'
