@@ -43,6 +43,6 @@
       loop:
         - "~/CTF-Platform/src/infrastructure"
         - "~/CTF-Platform/src/certificates"
-        # - "~/CTF-Platform/src/monitoring"
-        # - "~/CTF-Platform/src/authentication"
+        - "~/CTF-Platform/src/monitoring"
+        - "~/CTF-Platform/src/authentication"
         - "~/CTF-Platform/src/application"
