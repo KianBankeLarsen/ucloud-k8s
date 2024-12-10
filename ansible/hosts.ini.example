@@ -8,3 +8,6 @@ worker1 ansible_host=$WORKER_1_IP ansible_user=ucloud
 [k8s-cluster:children]
 control_plane
 workers
+
+[k8s-cluster:vars]
+tailscale_login_server=$LOGIN_SERVER

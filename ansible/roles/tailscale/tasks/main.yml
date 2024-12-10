@@ -24,6 +24,6 @@
 
 # TODO: separate role for worker and control; set --hostname=ctf-core for control
 - name: connect to tailscale
-  shell: "sudo tailscale up --authkey {{ lookup('file', '../tailscale_key')}}"
+  shell: sudo tailscale up --authkey {{ lookup('file', '../tailscale_key')}} --login-server "{{ tailscale_login_server }}" --hostname "{{ inventory_hostname }}"
 # TODO: after everything is deployed, new role to expose service
 # command: sudo tailscale funnel --tls-terminated-tcp=443 tcp://localhost:<service-port>
