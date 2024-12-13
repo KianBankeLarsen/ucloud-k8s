@@ -50,4 +50,4 @@
 - name: Restart Step CA
   become_user: "{{ ansible_user }}"
   shell: |
-    kubectl rollout restart -n ${NS} statefulset step-step-certificates
+    kubectl rollout restart -n ucloud statefulset step-step-certificates
