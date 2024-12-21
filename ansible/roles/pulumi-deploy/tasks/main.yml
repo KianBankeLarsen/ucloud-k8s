@@ -6,6 +6,13 @@
     dest: "~/CTF-Platform"
     update: yes
 
+- name: Update submodules
+  become_user: "{{ ansible_user }}"
+  shell: |
+    git submodule update --init src/application/challenges/
+  args:
+    chdir: "~/CTF-Platform"
+
 - name: install npm packages
   become_user: "{{ ansible_user }}"
   shell: |
