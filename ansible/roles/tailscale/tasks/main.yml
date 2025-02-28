@@ -22,6 +22,13 @@
     path: /tmp/tailscale-install.sh
     state: absent
 
+# TODO: won't be necessary if we enable HTTPS on Headscale control server
+- name: install old tailscale version to avoid HTTPS errors
+  apt:
+    allow_downgrade: true
+    name: tailscale=1.74.1
+    state: present
+
 # TODO: separate role for worker and control; set --hostname=ctf-core for control
 - name: connect to tailscale
   shell: sudo tailscale up --authkey {{ lookup('file', '../tailscale_key')}} --login-server "{{ tailscale_login_server }}" --hostname "{{ inventory_hostname }}"
