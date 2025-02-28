@@ -6,7 +6,7 @@
 
 - name: delete flannel interface
   shell: |
-    ip link delete flannel.1
+    ip link delete cni0
   ignore_errors: True
 
 - name: remove cni/net.d folder
