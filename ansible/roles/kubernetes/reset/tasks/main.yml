@@ -1,0 +1,42 @@
+---
+- name: run kubeadm reset
+  shell: |
+    kubeadm reset --force --cri-socket=unix:///var/run/cri-dockerd.sock
+  ignore_errors: True
+
+- name: delete flannel interface
+  shell: |
+    ip link delete flannel.1
+  ignore_errors: True
+
+- name: remove cni/net.d folder
+  file:
+    path: /etc/cni/net.d
+    state: absent
+
+- name: remove kubeconfig
+  file:
+    path: /home/{{ ansible_user }}/.kube/config
+    state: absent
+
+- name: remove cluster_initialized.txt
+  file:
+    path: /root/cluster_initialized.txt
+    state: absent
+
+- name: remove node_joined.txt
+  file:
+    path: /root/node_joined.txt
+    state: absent
+
+- name: restart kubelet
+  systemd:
+    name: kubelet
+    state: restarted
+    daemon_reload: true
+
+- name: restart docker
+  systemd:
+    name: docker
+    state: restarted
+    daemon_reload: true
