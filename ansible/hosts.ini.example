@@ -11,3 +11,8 @@ workers
 
 [k8s-cluster:vars]
 tailscale_login_server=$LOGIN_SERVER
+minio_bucket=$MINIO_BUCKET
+minio_host=$MINIO_HOST
+minio_user=$MINIO_USER
+minio_password=$MINIO_PASSWORD
+minio_mount_point=$MINIO_MOUNT_POINT

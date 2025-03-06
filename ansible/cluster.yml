@@ -3,6 +3,7 @@
   become: true
   roles:
     - commons/upgrade
+    - commons/minIO
     - docker
     - cri-dockerd
 

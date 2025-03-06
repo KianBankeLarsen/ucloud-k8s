@@ -1,0 +1,28 @@
+---
+- name: create minIO bucket mount point
+  file:
+    path: "{{ minio_mount_point }}"
+    state: directory
+
+- name: install s3fs
+  apt:
+    name: s3fs
+    state: present
+
+- name: output minio user:password to file
+  lineinfile:
+    path: /root/s3cred
+    line: "{{ minio_user }}:{{ minio_password }}"
+    regexp: '^\w+:\w+$'
+    create: true
+    state: present
+    mode: "0600"
+
+- name: mount minIO bucket
+  shell: |
+    s3fs {{ minio_bucket }} {{ minio_mount_point }} -o passwd_file=/root/s3cred,use_path_request_style,url={{ minio_host }} >> bucket_mounted.txt
+    timeout 10 bash -c -- 'while ! grep -q -s {{ minio_mount_point }} /proc/mounts; do
+        sleep 2
+    done'
+  args:
+    creates: bucket_mounted.txt
