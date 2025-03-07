@@ -12,6 +12,7 @@
   become: true
   roles:
     - kubernetes/control
+    - nfs
 
 - hosts: workers
   gather_facts: true
