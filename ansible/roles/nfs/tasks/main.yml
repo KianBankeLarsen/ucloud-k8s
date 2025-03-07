@@ -1,0 +1,24 @@
+---
+
+- name: Creating mountable shared folders
+  file: 
+    path: /var/nfs/kubedata
+    owner: nobody
+    group: nogroup
+    state: directory
+
+- name: Configure nfs server
+  copy:
+    dest: /etc/exports
+    content: |
+      /var/nfs/kubedata *(rw,sync,no_subtree_check,no_root_squash,no_all_squash)
+      
+- name: Configure nfs server
+  ansible.builtin.shell:
+    cmd: exportfs -ra
+
+- name: Starting nfs server
+  service:
+    name: nfs-server 
+    state: started
+    enabled: yes
