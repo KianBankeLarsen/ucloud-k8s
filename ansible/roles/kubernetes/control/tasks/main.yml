@@ -17,6 +17,7 @@
 
 - name: initialize the cluster
   shell: kubeadm init --pod-network-cidr=10.244.0.0/16 --cri-socket=unix:///var/run/cri-dockerd.sock --apiserver-advertise-address=$(tailscale ip -4) >> cluster_initialized.txt
+  # shell: kubeadm init --pod-network-cidr=10.244.0.0/16 --cri-socket=unix:///var/run/cri-dockerd.sock --control-plane-endpoint={{ inventory_hostname }} >> cluster_initialized.txt
   args:
     chdir: $HOME
     creates: cluster_initialized.txt

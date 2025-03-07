@@ -3,7 +3,7 @@
   become: true
   roles:
     - commons/upgrade
-    - commons/minIO
+    # - commons/minIO
     - docker
     - cri-dockerd
 
@@ -17,6 +17,7 @@
   gather_facts: true
   become: true
   roles:
+    - commons/minIO
     - kubernetes/worker
 
 - hosts: control_plane

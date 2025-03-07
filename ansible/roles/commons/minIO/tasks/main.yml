@@ -4,25 +4,68 @@
     path: "{{ minio_mount_point }}"
     state: directory
 
-- name: install s3fs
+- name: install s3ql apt dependencies
   apt:
-    name: s3fs
-    state: present
+    pkg:
+      - python3-pip
+      - pkg-config
+      - libfuse3-dev
+      - libsqlite3-dev
+
+- name: install s3ql pip dependencies
+  pip:
+    name:
+      - setuptools
+      - cryptography
+      - defusedxml
+      - apsw
+      - trio
+      - pyfuse3
+      - pytest
+      - systemd
+      - requests
+      - google-auth
+      - google-auth-oauthlib
+      - pytest_trio
+
+- name: download and untar s3ql
+  unarchive:
+    src: https://github.com/s3ql/s3ql/releases/download/s3ql-5.2.3/s3ql-5.2.3.tar.gz
+    dest: ./
+    remote_src: yes
+
+- name: build s3ql
+  shell: |
+    python3 setup.py build_ext --inplace
+  args:
+    chdir: ./s3ql-5.2.3
+
+- name: install s3ql
+  shell: |
+    python3 setup.py install
+  args:
+    chdir: ./s3ql-5.2.3
 
 - name: output minio user:password to file
-  lineinfile:
+  blockinfile:
     path: /root/s3cred
-    line: "{{ minio_user }}:{{ minio_password }}"
-    regexp: '^\w+:\w+$'
+    block: |
+      [minio]
+      storage-url: s3c://
+      backend-login: {{ minio_user }}
+      backend-password: {{ minio_password }}
     create: true
     state: present
     mode: "0600"
 
 - name: mount minIO bucket
+  # shell: |
+  #   s3fs {{ minio_bucket }} {{ minio_mount_point }} -o passwd_file=/root/s3cred,use_path_request_style,url=https://{{ minio_host }},umask=0022 >> bucket_mounted.txt
+  #   timeout 10 bash -c -- 'while ! grep -q -s {{ minio_mount_point }} /proc/mounts; do
+  #       sleep 2
+  #   done'
   shell: |
-    s3fs {{ minio_bucket }} {{ minio_mount_point }} -o passwd_file=/root/s3cred,use_path_request_style,url={{ minio_host }} >> bucket_mounted.txt
-    timeout 10 bash -c -- 'while ! grep -q -s {{ minio_mount_point }} /proc/mounts; do
-        sleep 2
-    done'
+    mkfs.s3ql --authfile /root/s3cred s3c://{{minio_host}}/{{minio_bucket}} --plain
+    mount.s3ql --authfile /root/s3cred --allow-other s3c://{{minio_host}}/{{minio_bucket}} {{minio_mount_point}} && touch bucket_mounted.txt
   args:
     creates: bucket_mounted.txt
