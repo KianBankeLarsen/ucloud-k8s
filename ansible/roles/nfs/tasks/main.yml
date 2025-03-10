@@ -1,17 +1,19 @@
 ---
 
-- name: Creating mountable shared folders
-  file: 
-    path: /var/nfs/kubedata
+- name: Recursively set permissions and ownership
+  ansible.builtin.file:
+    path: "{{minio_mount_point}}"
+    state: directory
+    mode: '0777'
     owner: nobody
     group: nogroup
-    state: directory
+    recurse: yes
 
 - name: Configure nfs server
   copy:
     dest: /etc/exports
     content: |
-      /var/nfs/kubedata *(rw,sync,no_subtree_check,no_root_squash,no_all_squash)
+      {{minio_mount_point}} *(rw,sync,no_subtree_check,no_root_squash,no_all_squash,fsid=0)
       
 - name: Configure nfs server
   ansible.builtin.shell:

@@ -11,8 +11,8 @@
   become: true
   roles:
     - kubernetes/control
-    - nfs
     - commons/minIO
+    - nfs
 
 - hosts: workers
   gather_facts: true
